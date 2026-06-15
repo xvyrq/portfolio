@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luke Manary — Front-End Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181a;
+    --ink-soft:#3a4246;
+    --paper:#eeece4;
+    --fairway:#243c30;
+    --fairway-light:#3a5c48;
+    --steel:#cfd4d8;
+    --steel-dim:#8b939a;
+    --brass:#bd8e4e;
+    --brass-soft:#e3c79a;
+
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+
+    --maxw:920px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:var(--fairway); text-decoration-color: var(--brass); text-decoration-thickness: 2px; }
+  a:hover{ color:var(--brass); }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    margin:0;
+    color:var(--fairway);
+    letter-spacing:-0.01em;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--fairway);
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+    padding:5rem 0 4.5rem;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 48px);
+    pointer-events:none;
+  }
+  .hero__inner{ position:relative; z-index:1; }
+  .hero__eyebrow{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--brass-soft);
+    margin:0 0 1rem;
+  }
+  .hero h1{
+    color:var(--paper);
+    font-size:clamp(2.6rem, 6vw, 4.2rem);
+    font-weight:700;
+    line-height:1.05;
+  }
+  .hero__role{
+    font-family:var(--font-display);
+    font-size:clamp(1.1rem, 2.4vw, 1.4rem);
+    color:var(--steel);
+    margin:.5rem 0 1.5rem;
+    font-weight:500;
+  }
+  .hero__lede{
+    max-width:38em;
+    color:var(--steel);
+    font-size:1.05rem;
+  }
+  .hero__plate{ margin-top:2.5rem; max-width:30em; }
+
+  /* ---------- Spec plate (signature element) ---------- */
+  .specplate{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(150deg,#e3e6e9 0%, #c7ccd1 55%, #d6dadd 100%);
+    border:1px solid var(--steel-dim);
+    border-radius:3px;
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 8px 20px -12px rgba(0,0,0,.45);
+    font-family:var(--font-mono);
+    color:var(--ink);
+  }
+  .specplate::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(125deg, rgba(255,255,255,.5) 0 1px, transparent 1px 5px);
+    opacity:.35;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+  .specplate::after{
+    content:"";
+    position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(115deg, transparent 0%, rgba(255,255,255,.55) 50%, transparent 100%);
+    transform:skewX(-18deg);
+    transition:left 1.1s ease;
+    pointer-events:none;
+  }
+  .specplate:hover::after{ left:130%; }
+  .specplate__title{
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding:.7rem .9rem .5rem;
+    border-bottom:1px solid rgba(0,0,0,.12);
+    position:relative; z-index:1;
+  }
+  .specplate__row{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    padding:.55rem .9rem;
+    border-bottom:1px solid rgba(0,0,0,.08);
+    font-size:.82rem;
+    position:relative; z-index:1;
+  }
+  .specplate__row:last-child{ border-bottom:none; }
+  .specplate__label{
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    font-size:.7rem;
+    padding-top:.1rem;
+    white-space:nowrap;
+  }
+  .specplate__value{
+    font-weight:600;
+    text-align:right;
+  }
+
+  /* ---------- Sections ---------- */
+  .section{ padding:4.5rem 0; border-bottom:1px solid #d8d4c8; }
+  .section:last-of-type{ border-bottom:none; }
+  .section__head{
+    display:flex; align-items:baseline; gap:.9rem;
+    margin-bottom:1.75rem;
+  }
+  .section__code{
+    font-family:var(--font-mono);
+    font-size:.8rem;
+    color:var(--brass);
+    letter-spacing:.1em;
+  }
+  .section h2{ font-size:clamp(1.5rem, 3.5vw, 2.1rem); }
+  .section__lede{ max-width:38em; color:var(--ink-soft); margin-bottom:1.5rem; }
+
+  /* ---------- Project ---------- */
+  .project__meta{
+    margin-bottom:1.5rem;
+    font-family:var(--font-mono);
+    font-size:.85rem;
+    color:var(--ink-soft);
+  }
+  .project__meta a{ font-weight:600; }
+  .project__grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:2rem;
+    align-items:start;
+  }
+  .project__body p{ margin:0 0 1rem; }
+  .project__body p:last-child{ margin-bottom:0; }
+  .project__body strong{ color:var(--fairway); }
+
+  /* ---------- Work grid ---------- */
+  .work-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1.5rem;
+  }
+  .work-card{
+    border:1px solid #d8d4c8;
+    border-radius:3px;
+    padding:1.25rem;
+    background:#f6f4ee;
+    display:flex;
+    flex-direction:column;
+    gap:.9rem;
+  }
+  .work-card h3{ font-size:1.05rem; }
+  .work-card p{ margin:0; color:var(--ink-soft); font-size:.95rem; }
+  .work-card .specplate{ font-size:.75rem; }
+  .work-card .specplate__row{ padding:.4rem .75rem; }
+  .work-card .specplate__title{ padding:.55rem .75rem .4rem; }
+
+  /* ---------- Toolkit ---------- */
+  .toolkit{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.5rem;
+  }
+  .toolkit__group h3{
+    font-family:var(--font-mono);
+    font-size:.75rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:.6rem;
+  }
+  .toolkit__group ul{ margin:0; padding:0; list-style:none; }
+  .toolkit__group li{
+    padding:.35rem 0;
+    border-bottom:1px solid #d8d4c8;
+    font-size:.95rem;
+  }
+  .toolkit__group li:last-child{ border-bottom:none; }
+
+  /* ---------- Contact ---------- */
+  .contact__plate{ max-width:26em; }
+  .contact__lede{ margin-bottom:1.5rem; max-width:34em; color:var(--ink-soft); }
+
+  /* ---------- Footer ---------- */
+  .footer{
+    padding:2.5rem 0 3rem;
+    font-family:var(--font-mono);
+    font-size:.8rem;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .specplate::after{ transition:none; left:130%; opacity:0; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 760px){
+    .project__grid{ grid-template-columns:1fr; }
+    .work-grid{ grid-template-columns:1fr; }
+    .toolkit{ grid-template-columns:1fr; }
+    .hero{ padding:3.5rem 0 3rem; }
+    .section{ padding:3rem 0; }
+  }
+
+  /* ---------- Focus states ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero__inner">
+    <p class="hero__eyebrow">Front-End Developer — Columbia, MO</p>
+    <h1>Luke Manary</h1>
+    <p class="hero__role">I build interfaces, then test whether they work.</p>
+    <p class="hero__lede">
+      Two and a half years into a front-end career spent inside an enterprise CMS, running experiments,
+      and shipping the ones that win. Below: a personal project built start to finish on my own,
+      and a few highlights from the day job.
+    </p>
+    <div class="hero__plate">
+      <div class="specplate">
+        <p class="specplate__title">Build Spec</p>
+        <div class="specplate__row"><span class="specplate__label">Role</span><span class="specplate__value">Front-End Developer</span></div>
+        <div class="specplate__row"><span class="specplate__label">Stack</span><span class="specplate__value">HTML · CSS · JS · Optimizely</span></div>
+        <div class="specplate__row"><span class="specplate__label">A/B tests run</span><span class="specplate__value">15+</span></div>
+        <div class="specplate__row"><span class="specplate__label">Best result</span><span class="specplate__value">+60% conversion</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section reveal" id="about">
+    <div class="section__head">
+      <span class="section__code">§01</span>
+      <h2>About</h2>
+    </div>
+    <p class="section__lede">
+      I work at the intersection of building things and measuring them. Most days that means writing
+      semantic HTML, BEM-structured CSS, and vanilla JavaScript inside an enterprise Optimizely CMS,
+      then turning around and designing the A/B test that tells me whether the thing I built actually
+      moved the needle.
+    </p>
+    <p class="section__lede" style="margin-bottom:0;">
+      I care about accessible, performant front ends as much as I care about the data that comes back
+      from them. Outside of work, that same instinct shows up in Endless Scotty Gallery, a putter-collector
+      tool I designed, built, and shipped entirely on my own.
+    </p>
+  </section>
+
+  <section class="section reveal" id="project">
+    <div class="section__head">
+      <span class="section__code">§02</span>
+      <h2>Featured Project</h2>
+    </div>
+    <h3 style="font-size:1.3rem; margin-bottom:.4rem;">Endless Scotty Gallery</h3>
+    <p class="project__meta">
+      <a href="https://endlessscottygallery.xyz" target="_blank" rel="noopener">endlessscottygallery.xyz</a>
+    </p>
+    <div class="project__grid">
+      <div class="project__body">
+        <p>
+          <strong>Problem.</strong> Scotty Cameron has released hundreds of putter models over three
+          decades, many in small runs with their own certificates of authenticity, but no central place
+          exists to search or cross-reference them.
+        </p>
+        <p>
+          <strong>Approach.</strong> I designed and built a searchable, filterable catalog of Scotty
+          Cameron putter models and their certificate details, using plain HTML, CSS, and JavaScript,
+          then deployed it independently to GitHub Pages under a custom domain.
+        </p>
+        <p>
+          <strong>Result.</strong> A reference tool the collector community actually uses, built,
+          deployed, and maintained solo from idea to production.
+        </p>
+      </div>
+      <div class="specplate">
+        <p class="specplate__title">Project Spec</p>
+        <div class="specplate__row"><span class="specplate__label">Type</span><span class="specplate__value">Independent web app</span></div>
+        <div class="specplate__row"><span class="specplate__label">Stack</span><span class="specplate__value">HTML · CSS · JS</span></div>
+        <div class="specplate__row"><span class="specplate__label">Hosting</span><span class="specplate__value">GitHub Pages</span></div>
+        <div class="specplate__row"><span class="specplate__label">Status</span><span class="specplate__value">Live</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="work">
+    <div class="section__head">
+      <span class="section__code">§03</span>
+      <h2>Selected Work</h2>
+    </div>
+    <p class="section__lede">A few pieces of what a typical week looks like in an enterprise front-end role.</p>
+
+    <div class="work-grid">
+
+      <div class="work-card">
+        <h3>Experimentation Program</h3>
+        <p>Co-lead an internal A/B testing program, designing and running structured experiments on
+          creative messaging and layout. One homepage CTA copy test drove a nearly 60% lift in conversion.</p>
+        <div class="specplate">
+          <div class="specplate__row"><span class="specplate__label">Role</span><span class="specplate__value">Co-lead</span></div>
+          <div class="specplate__row"><span class="specplate__label">Tests run</span><span class="specplate__value">15+</span></div>
+          <div class="specplate__row"><span class="specplate__label">Result</span><span class="specplate__value">+60% lift</span></div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <h3>Personalization &amp; Targeting</h3>
+        <p>Configure audience segmentation, content targeting, and personalization rules to deliver
+          tailored experiences across multiple sites.</p>
+        <div class="specplate">
+          <div class="specplate__row"><span class="specplate__label">Platform</span><span class="specplate__value">Optimizely</span></div>
+          <div class="specplate__row"><span class="specplate__label">Scope</span><span class="specplate__value">Audience segmentation</span></div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <h3>Reusable UI Components</h3>
+        <p>Design and build CMS-droppable components, from product selection cards to a custom
+          dithering-effect button, with layout-only CSS and inherited typography.</p>
+        <div class="specplate">
+          <div class="specplate__row"><span class="specplate__label">Stack</span><span class="specplate__value">HTML · CSS · JS</span></div>
+          <div class="specplate__row"><span class="specplate__label">Method</span><span class="specplate__value">BEM</span></div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <h3>Accessibility &amp; Performance</h3>
+        <p>QA every deliverable for WCAG accessibility compliance and Core Web Vitals, optimizing
+          image and asset delivery across CMS templates.</p>
+        <div class="specplate">
+          <div class="specplate__row"><span class="specplate__label">Tools</span><span class="specplate__value">Lighthouse, axe</span></div>
+          <div class="specplate__row"><span class="specplate__label">Standard</span><span class="specplate__value">WCAG</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section reveal" id="toolkit">
+    <div class="section__head">
+      <span class="section__code">§04</span>
+      <h2>Toolkit</h2>
+    </div>
+    <div class="toolkit">
+      <div class="toolkit__group">
+        <h3>Languages</h3>
+        <ul>
+          <li>HTML5</li>
+          <li>CSS3 (Sass, BEM)</li>
+          <li>JavaScript</li>
+        </ul>
+      </div>
+      <div class="toolkit__group">
+        <h3>Platforms</h3>
+        <ul>
+          <li>Optimizely CMS &amp; Experimentation</li>
+          <li>Figma</li>
+          <li>Git / GitHub Pages</li>
+        </ul>
+      </div>
+      <div class="toolkit__group">
+        <h3>Practices</h3>
+        <ul>
+          <li>A/B &amp; multivariate testing</li>
+          <li>Audience segmentation</li>
+          <li>Accessibility (WCAG)</li>
+          <li>AI-assisted development</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="contact">
+    <div class="section__head">
+      <span class="section__code">§05</span>
+      <h2>Let's talk</h2>
+    </div>
+    <p class="contact__lede">Open to front-end, UX engineering, and personalization-focused roles.</p>
+    <div class="contact__plate">
+      <div class="specplate">
+        <div class="specplate__row"><span class="specplate__label">Email</span><span class="specplate__value"><a href="mailto:lkmnry@gmail.com">lkmnry@gmail.com</a></span></div>
+        <div class="specplate__row"><span class="specplate__label">LinkedIn</span><span class="specplate__value"><a href="https://linkedin.com/in/endlessloop" target="_blank" rel="noopener">/in/endlessloop</a></span></div>
+        <div class="specplate__row"><span class="specplate__label">Location</span><span class="specplate__value">Columbia, MO</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Built with HTML, CSS, and JavaScript — no frameworks.
+</footer>
+
+<script>
+  // Scroll-reveal for sections
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function(el){ observer.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+</script>
+
+</body>
+</html>
